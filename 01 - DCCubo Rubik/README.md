@@ -11,5 +11,5 @@ pip install rubik-cube
 
 * En el archivo `main.py` puedes ver que se crea un archivo de texto llamado `parsed.txt`. Esto es para utilizar el visualizador 3D mostrado en la cápsula correspondiente.
 
-# Conssideraciones
+# Consideraciones
 Cualquier archivo que crees o si haces modificaciones importantes debes explicarlas y comentar cómo se ejecutan. Recuerda que no podemos adivinar lo que pensaste.
