@@ -54,7 +54,7 @@ def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player)
         return (None, [False, None], -math.inf)
 
       else: 											# Game is over, no more valid moves
-        return (None, 0, True)
+        return (None, [False, None], 0)
 
     else: 												# Depth is zero	
       if maximizing_player:		
