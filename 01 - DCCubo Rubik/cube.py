@@ -17,7 +17,7 @@ class RCube(Cube):
          Cube.B:Cube.Bi,
          Cube.Bi:Cube.B}
     
-    def __init__(self,state, shuffle = False, verbose = 0, complexity = 1):
+    def __init__(self, state, shuffle = False, verbose = 0, complexity = 1):
         super().__init__(state)
         self.shuffle = shuffle
         if self.shuffle:

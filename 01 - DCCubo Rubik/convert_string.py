@@ -24,10 +24,19 @@ def parse_cube(cube):
 
 	return ''.join(parsed_cube) +'\n'
 
-def parse_algorithm(algorithm):
-	algorithm = algorithm.replace('->', ' ').replace('i', '\'')
 
-	return algorithm[1:] +'\n'
+def parse_algorithm(algorithm):
+	algorithm_parsed = []
+  
+	for al in algorithm.split('\n'):
+		if '->' in al:
+			algorithm_parsed.append(al.strip())
+  
+	algorithm_parsed = ''.join(algorithm_parsed)
+	algorithm_parsed = algorithm_parsed.replace('->', ' ').replace('i', '\'')
+  
+	return algorithm_parsed +'\n'
+
 
 def print_fun(string):
 	new_str = ''
@@ -37,10 +46,11 @@ def print_fun(string):
 		for i in range(len(string)):
 			col = COLORS.get(string[i])
 			if col and not (string[i+1] == 'i' or string[i+1] == '-'):
-				new_str += colored(*col,string[i])
+				new_str += colored(*col, string[i])
 			else:
 				new_str += string[i]
 		print(new_str)
+
 
 def colored(r, g, b, text):
     return "\033[38;2;{};{};{}m{} \033[38;2;255;255;255m".format(r, g, b, text)

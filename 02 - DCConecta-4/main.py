@@ -34,6 +34,11 @@ def main():
 
         # The player chooses his move
         pos, bomb = player1.pick_movement(match)
+
+        if pos is None:
+            print("Tie")
+            break
+
         print(f"Players 1 Turn {player1.token}")
         print(f"Player 1 played in column {pos} with the use of {bomb[1]} bomb")
 
@@ -71,6 +76,11 @@ def main():
         # O player (computer == minmax)
         # The computer chooses his move
         pos, bomb = player2.pick_movement(match)
+
+        if pos is None:
+            print("Tie")
+            break
+
         print(f"Players 2 Turn {player2.token}")
         print(f"Player 2 played in column {pos} with the use of {bomb[1]} bomb")
 
