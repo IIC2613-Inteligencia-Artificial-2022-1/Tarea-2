@@ -111,6 +111,7 @@ class AiPlayer:
             self.classic_bomb_available]            # self.bombs = [horizontal, vertical, classic]
 
         self.score_function = score_function
+        self.maximizing_player = token == "O"
 
     def pick_movement(self, match):
         """
@@ -123,7 +124,7 @@ class AiPlayer:
         # If the player is the AI         
         column, bomb, _ = minimax(match = match, depth = 5, alpha = -math.inf,
             beta = math.inf, bombs = self.bombs, score_function = self.score_function, 
-            maximizing_player=True)
+            maximizing_player=self.maximizing_player)
         # We don not use value here, so its replaced with _
 
         return (column, bomb)
