@@ -32,7 +32,17 @@ def is_terminal_node(match, bombs):
     len(get_valid_locations(match.stacks, bombs)) == 0)
 
 
-def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player):
+def opponentToken(token):
+  """
+  Check the oponent of a given token
+  """
+  if token == "O":
+    return "X"
+  else:
+    return "O"
+
+
+def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player, token):
   """
   Minimax algorithm. Given the current match, alpha, beta,
   bombs (= [horizontal, vertical, classic]) and score function 
@@ -45,12 +55,14 @@ def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player)
 
   # First we check if we are in the terminal node (or the game is over at the current depth)
   is_terminal = is_terminal_node(match, bombs)
+  opponent_token = opponentToken(token)
+
   if depth == 0 or is_terminal:
     if is_terminal:
-      if match.check_win("O"):						# Computer won
+      if match.check_win(token):					# Computer won
         return (None, [False, None], math.inf)
 
-      elif match.check_win("X"):						# "Player" won
+      elif match.check_win(opponent_token):							# "Player" won
         return (None, [False, None], -math.inf)
 
       else: 											# Game is over, no more valid moves
@@ -58,12 +70,10 @@ def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player)
 
     else: 												# Depth is zero	
       if maximizing_player:		
-        return (None, [False, None], score_function(match.board, "O"))
+        return (None, [False, None], score_function(match.board, token))
       else:
-        return (None, [False, None], -score_function(match.board, "X"))
+        return (None, [False, None], -score_function(match.board, opponent_token))
 
-  
-  
   if maximizing_player:									# Computer turn at the current depth
     valid_locations = get_valid_locations(match.stacks, bombs)
     value = -math.inf									
@@ -89,10 +99,10 @@ def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player)
 
       else:
         # Move at the current column
-        match_copy.move(movement[0], "O")
+        match_copy.move(movement[0], token)
 
       # Score for the current move 
-      new_score = minimax(match_copy, depth-1, alpha, beta, bombs, score_function, False)[2]
+      new_score = minimax(match_copy, depth-1, alpha, beta, bombs, score_function, False, token)[2]
 
       # We check if its the current best move	
       if new_score > value:
@@ -128,11 +138,11 @@ def minimax(match, depth, alpha, beta, bombs, score_function, maximizing_player)
 
       else:
         # Move at the current column
-        match_copy.move(movement[0], "X")
+        match_copy.move(movement[0], opponent_token)
 
 
       # Score for the current move
-      new_score = minimax(match_copy, depth-1, alpha, beta, bombs, score_function, True)[2]
+      new_score = minimax(match_copy, depth-1, alpha, beta, bombs, score_function, True, token)[2]
       # We check if its the current best (or worst) move	
       if new_score < value:
         value = new_score

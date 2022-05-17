@@ -123,7 +123,7 @@ class AiPlayer:
         # If the player is the AI         
         column, bomb, _ = minimax(match = match, depth = 5, alpha = -math.inf,
             beta = math.inf, bombs = self.bombs, score_function = self.score_function, 
-            maximizing_player=True)
+            maximizing_player=True, token = self.token)
         # We don not use value here, so its replaced with _
 
         return (column, bomb)
